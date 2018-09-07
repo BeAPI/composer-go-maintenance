@@ -41,6 +41,7 @@ Optionally you can override paths e.g :
 `composer go-maintenance start wp tools/maintenance.model`
 
 *If you use these additional parameters, please make sure you use relative paths in command lines.*
+*Also make sure your model file is named 'maintenance.model'*
 
 Optionally you can create a file called `maintenance.php` at the root of your WordPress content dir e.g `wp-content/maintenance.php`.
 This is a good way to customize maintenance page displayed in WordPress by default.

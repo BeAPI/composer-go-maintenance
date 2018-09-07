@@ -15,7 +15,7 @@ class GoMaintenanceCommand extends BaseCommand {
 		     ->setDescription( 'Enable / disable WordPress maintenance mode easily.' )
 		     ->addArgument( 'start-stop', InputArgument::REQUIRED, "'start' or 'stop' maintenance mode ?" )
 		     ->addArgument( 'wp-rel-dir', InputArgument::OPTIONAL, "Where is installed WordPress (use relative path) ? (default 'wp')" )
-		     ->addArgument( 'model-rel-dir', InputArgument::OPTIONAL, "Where is your .maintenance model (use relative path) ? (default 'tools/maintenance.model')" );
+		     ->addArgument( 'model-rel-dir', InputArgument::OPTIONAL, "Where is your maintenance.model model (use relative path) ? (default 'tools/')" );
 	}
 
 	/**
@@ -33,10 +33,10 @@ class GoMaintenanceCommand extends BaseCommand {
 		$startStop      = $input->getArgument( 'start-stop' );
 		$dir            = ! empty( $input->getArgument( 'wp-rel-dir' ) )
 			? $input->getArgument( 'wp-rel-dir' ) : 'wp';
-		$model_rel_path = ! empty( $input->getArgument( 'model-rel-dir' ) )
+		$model_rel_dir = ! empty( $input->getArgument( 'model-rel-dir' ) )
 			? $input->getArgument( 'model-rel-dir' ) : 'tools/maintenance.model';
 
-		if ( ! file_exists( $model_rel_path ) ) {
+		if ( ! file_exists( $model_rel_dir ) ) {
 			$io->writeln( "There is no model in /tools/ for the .maintenance" );
 			exit;
 		}
@@ -45,7 +45,7 @@ class GoMaintenanceCommand extends BaseCommand {
 		 * prevent misuses
 		 */
 		$dir            = $this->untrailingslashit( $dir );
-		$model_rel_path = $this->untrailingslashit( $model_rel_path );
+		$model_rel_dir = $this->untrailingslashit( $model_rel_dir );
 
 		switch ( $startStop ) {
 
@@ -59,9 +59,9 @@ class GoMaintenanceCommand extends BaseCommand {
 				if ( false === $io->confirm( "Do you really want to go maintenance now ?", true ) ) {
 					exit;
 				}
-				$copy = copy( $projectRootPath . '/' . $model_rel_path, $projectRootPath . '/' . $dir . '/.maintenance' );
+				$copy = copy( $projectRootPath . '/' . $model_rel_dir . '/maintenance.model', $projectRootPath . '/' . $dir  . '/.maintenance' );
 				if ( empty( $copy ) ) {
-					$io->error( sprintf( "Copy of %s failed.", $model_rel_path ) );
+					$io->error( sprintf( "Copy of %s failed.", $model_rel_dir ) );
 					exit;
 				}
 				$io->success( "Maintenance mod enabled." );
@@ -71,7 +71,7 @@ class GoMaintenanceCommand extends BaseCommand {
 				$maintenance_file_path = $projectRootPath . '/' . $dir . '/.maintenance';
 				$unlink                = unlink( $maintenance_file_path );
 				if ( empty( $unlink ) ) {
-					$io->error( sprintf( "Delete of %s failed.", $model_rel_path ) );
+					$io->error( sprintf( "Delete of %s failed.", $model_rel_dir ) );
 					exit;
 				}
 				$io->success( "Maintenance mod disabled." );
