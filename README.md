@@ -6,7 +6,7 @@ External composer command to put a WordPress website in maintenance mode the Wor
 
 # Disclaimer
 
-This is deeply based on our current project's structure, so WordPress in `/wp/` and maintenance file in `tools/`.
+This is deeply based on our current project's structure, so WordPress in `/wp/` and maintenance file in `tools/maintenance.model`.
 Nevertheless you can override paths with additional arguments in command lines.
 
 # What ?
