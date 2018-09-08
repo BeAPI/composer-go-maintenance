@@ -29,7 +29,7 @@ if ( 'REPLACE_WITH_YOUR_IP' !== $_SERVER['REMOTE_ADDR'] )
 ## 1 - Add to [Composer](http://composer.rarst.net/)
 
 - Add repository source : `{ "type": "vcs", "url": "https://github.com/BeAPI/composer-go-maintenance" }`.
-- Include `"beapi/composer-go-maintenance: "dev-master"` into your composer.json file as require dev.
+- Include `"beapi/composer-go-maintenance: "dev-master"` into your composer.json file as require.
 - Then `composer update` before use.
 
 ## 2 - Run command 
